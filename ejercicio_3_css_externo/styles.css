@@ -1,0 +1,41 @@
+
+/* Caracteristicas y disenio del cuerpo */
+    body {
+        font-family: Arial;
+        line-height: 1.5;
+        margin: 20px;
+        background-color: #F53D3D;
+        color: #37e03a;
+    }
+
+/*  Para los títulos*/
+h1 {
+color:black;
+border-bottom: 2px solid #0055a4;
+}
+/* para la navegacion*/
+nav {
+    background: #F53D3D;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.resaltado {  /* para los <p> */
+    background-color: #e3f2fd;
+    padding: 10px;
+    border-left: 5px solid #2196f3;
+    margin: 15px 0;
+}
+
+
+
+
+
+
+
