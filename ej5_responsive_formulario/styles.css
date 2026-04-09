@@ -1,0 +1,113 @@
+:root {
+
+  --color_p:#0055a4;
+  --color_s:#333;
+  --color_f:#f0f2f5;
+  --color_texto:black;
+  --borde_r:10px;
+  --sombra_s: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* los paddings no agrandan la caja */
+}
+
+/* Caracteristicas y disenio del cuerpo */
+    body {
+        font-family: Arial;
+        line-height: 1.5;
+        margin: 20px;
+        background-color: var(--color_f);
+        color: var(--color_s);
+    }
+
+
+
+/* para la navegacion*/
+nav {
+    display:flex;
+    justify-content:center; /* centra links */
+    gap:20px; /* espacio entre los botones */
+    background-color: var(--color_p);
+    padding: 1rem;
+    margin-bottom: 30px;
+    box-shadow: var(--sombra_s);
+
+}
+
+nav a {
+   
+    color: var(--color_s);
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.resaltado {  
+    background-color: skyblue;
+    padding: 10px;
+    border-left: 5px solid var(--color_texto);
+    margin: 15px 0;
+}
+
+section {
+    background: var(--color_f);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: var(--borde_r);
+    box-shadow: var(--sombra_s);
+    /*  para el contenido interno de la sección */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h1, h2 {
+    color: var(--color_p);   /* titulos y subtitulos */
+}
+
+
+/* para celulares */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column; /*menú verticalmente  en el celu */
+        align-items: center;
+    }
+
+    main {
+        flex-direction: column; /* secciones  una abajo de otra */
+        padding: 10px;
+    }
+
+    section {
+        width: 100%; 
+    }
+}
+
+
+/* Estilo para el formulario */ 
+form div {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea {
+    padding: 10px;
+    border: 1px solid var(--color_p);
+    border-radius: var(--borde_r);
+    margin-top: 5px;
+}
+
+button {
+    background-color: var(--color_p);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--borde_r);
+    cursor: pointer;
+}
+
+
