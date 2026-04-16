@@ -21,7 +21,7 @@ btn.addEventListener('click', () => {
 
    const altura=Number(input.value);
    Pantalla_resultado.innerText= "";
-    if (input.value === "" | altura < 1 ){
+    if (input.value === "" | altura < 1 ){ 
         Pantalla_resultado.innerText = " No se ha ingresado input , invalido "
         Pantalla_resultado.style.color = "red";
     }
