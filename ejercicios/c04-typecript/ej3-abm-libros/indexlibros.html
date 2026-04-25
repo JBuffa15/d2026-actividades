@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ABM de Libros - UTN</title>
+   
+</head>
+<body>
+    <h1>Administración de catálogo</h1>
+
+    <fieldset>
+        <legend>Cargar nuevo libro</legend>
+        <input type="text" id="titulo" placeholder="Título">
+        <input type="text" id="autor" placeholder="Autor">
+        <input type="number" id="precio" placeholder="Precio">
+        <label><input type="checkbox" id="disponible"> Disponible</label>
+        <button id="btnAgregar">Agregar Libro</button>
+        <div id="errorForm"></div>
+    </fieldset>
+
+    <hr>
+    <input type="text" id="filtroAutor" placeholder="Filtrar por autor">
+    <button id="btnFiltrar">Filtrar</button>
+    <button id="btnTodos">Ver Todos</button>
+
+    <p id="stats"></p>
+    <ul id="listado"></ul>
+
+    <script src="applibros.js"></script>
+</body>
+</html>
