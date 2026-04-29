@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Libros</title>
+</head>
+<body>
+    <h1>Buscador de Libros con Open Library</h1>
+
+    <div>
+        <input type="text" id="busqueda" placeholder="Ej: El Quijote">
+        <button id="btn-buscar">Buscar</button>
+    </div>
+
+    <p id="mensaje-error" style="color: red; display: none;"></p>
+    <p id="loading" style="display: none;">Buscando libros...</p>
+
+    <div id="resultados"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
