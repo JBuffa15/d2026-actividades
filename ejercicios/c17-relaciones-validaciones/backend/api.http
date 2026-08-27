@@ -1,0 +1,92 @@
+### Obtener todos los libros
+GET http://localhost:3000/api/libros
+
+### Obtener un libro por ID (Caso Exitoso)
+GET http://localhost:3000/api/libros/1
+
+### Obtener un libro por ID (Caso Error 404)
+GET http://localhost:3000/api/libros/99999
+
+### Crear un nuevo libro
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "El Aleph",
+  "autorId": 1
+}
+
+### Actualizar un libro
+PUT http://localhost:3000/api/libros/1
+Content-Type: application/json
+
+{
+  "titulo": "El Aleph - Edición Especial"
+}
+
+### Eliminar un libro
+DELETE http://localhost:3000/api/libros/1
+
+#########################################
+
+### Obtener todos los autores
+GET http://localhost:3000/api/autores
+
+### Obtener un autor por ID (Caso Exitoso)
+GET http://localhost:3000/api/autores/1
+
+### Obtener un autor por ID (Caso Error 404)
+GET http://localhost:3000/api/autores/99999
+
+### Crear un nuevo autor
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Jorge Luis Borges"
+}
+
+### Actualizar un autor
+PUT http://localhost:3000/api/autores/1
+Content-Type: application/json
+
+{
+  "nombre": "J. L. Borges"
+}
+
+### Eliminar un autor
+DELETE http://localhost:3000/api/autores/1
+
+### 400 - libro sin título
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "autorId": 1
+}
+
+### 400 - id inválido
+GET http://localhost:3000/api/libros/abc
+
+### 400 - autor inexistente en autorId 
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "Huérfano",
+  "anio": "2020",
+  "imgSrc": "https://placehold.co/300x400",
+  "autorId": 9999
+}
+
+### 409 - autor duplicado
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Jorge Luis Borges",
+  "nacionalidad": "Argentina"
+}
+
+### 409 - borrar autor con libros 
+DELETE http://localhost:3000/api/autores/1
