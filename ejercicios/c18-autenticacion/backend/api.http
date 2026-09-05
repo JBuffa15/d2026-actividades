@@ -1,0 +1,190 @@
+### Obtener todos los libros
+GET http://localhost:3000/api/libros
+
+### Obtener un libro por ID (Caso Exitoso)
+GET http://localhost:3000/api/libros/1
+
+### Obtener un libro por ID (Caso Error 404)
+GET http://localhost:3000/api/libros/99999
+
+### Crear un nuevo libro
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "El Aleph",
+  "autorId": 1
+}
+
+### Actualizar un libro
+PUT http://localhost:3000/api/libros/1
+Content-Type: application/json
+
+{
+  "titulo": "El Aleph - Edición Especial"
+}
+
+### Eliminar un libro
+DELETE http://localhost:3000/api/libros/1
+
+#########################################
+
+### Obtener todos los autores
+GET http://localhost:3000/api/autores
+
+### Obtener un autor por ID (Caso Exitoso)
+GET http://localhost:3000/api/autores/1
+
+### Obtener un autor por ID (Caso Error 404)
+GET http://localhost:3000/api/autores/99999
+
+### Crear un nuevo autor
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Jorge Luis Borges"
+}
+
+### Actualizar un autor
+PUT http://localhost:3000/api/autores/1
+Content-Type: application/json
+
+{
+  "nombre": "J. L. Borges"
+}
+
+### Eliminar un autor
+DELETE http://localhost:3000/api/autores/1
+
+### 400 - libro sin título
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "autorId": 1
+}
+
+### 400 - id inválido
+GET http://localhost:3000/api/libros/abc
+
+### 400 - autor inexistente en autorId 
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "Huérfano",
+  "anio": "2020",
+  "imgSrc": "https://placehold.co/300x400",
+  "autorId": 9999
+}
+
+### 409 - autor duplicado
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Jorge Luis Borges",
+  "nacionalidad": "Argentina"
+}
+
+### 409 - borrar autor con libros 
+DELETE http://localhost:3000/api/autores/1
+
+#########################################
+### AUTENTICACIÓN
+
+### 1 - Registro exitoso
+POST http://localhost:3000/api/auth/registro
+Content-Type: application/json
+
+{
+  "email": "nuevo@test.com",
+  "password": "Password123",
+  "nombre": "Usuario Nuevo"
+}
+
+### 2 - Registro con mail duplicado -> 409
+POST http://localhost:3000/api/auth/registro
+Content-Type: application/json
+
+{
+  "email": "admin@libreria.com",
+  "password": "Password123",
+  "nombre": "Otro Nombre"
+}
+
+### 3 - Login ADMIN exitoso -> 200 (captura token)
+# @name loginAdmin
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@libreria.com",
+  "password": "Admin1234!"
+}
+
+### 4 - Login CLIENTE exitoso -> 200 (captura token)
+# @name loginCliente
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "cliente@libreria.com",
+  "password": "Cliente1234!"
+}
+
+### 5 - Login con mail inexistente -> 401
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "noexiste@test.com",
+  "password": "Cualquiera123"
+}
+
+### 6 - Login con contraseña incorrecta -> 401
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@libreria.com",
+  "password": "PasswordMala"
+}
+
+### 7 - GET /auth/yo sin token -> 401
+GET http://localhost:3000/api/auth/yo
+
+### 8 - GET /auth/yo con token válido -> 200
+GET http://localhost:3000/api/auth/yo
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### 9 - GET /libros sin token (lectura pública) -> 200
+GET http://localhost:3000/api/libros
+
+### 10 - POST /autores sin token -> 401
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Sin Token"
+}
+
+### 11 - POST /autores con token CLIENTE -> 403
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+{
+  "nombre": "Autor Bloqueado"
+}
+
+### 12 - POST /autores con token ADMIN -> 201
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+{
+  "nombre": "Autor Autorizado",
+  "nacionalidad": "Argentina"
+}
