@@ -1,0 +1,33 @@
+# Imagen de PRODUCCIÓN del backend. La de desarrollo sigue siendo ./Dockerfile
+# Dos etapas: la primera compila, la segunda se queda solo con lo necesario para correr.
+ 
+# ---------- Etapa 1: build ----------
+    FROM node:22-alpine AS build
+    WORKDIR /app
+     
+    # Instala TODO (incluye devDependencies: typescript, prisma CLI)
+    COPY package*.json ./
+    RUN npm ci
+     
+    # El resto del código (.dockerignore deja afuera node_modules, dist, .env)
+    COPY . .
+     
+    # Genera el cliente de Prisma y compila TS -> dist/
+    RUN npx prisma generate && npm run build
+     
+    # ---------- Etapa 2: runtime ----------
+    FROM node:22-alpine
+    WORKDIR /app
+    ENV NODE_ENV=production
+     
+    # node_modules viene de la etapa 1 (incluye el cliente de Prisma generado y el CLI)
+    COPY --from=build /app/node_modules ./node_modules
+    COPY --from=build /app/dist ./dist
+    COPY package*.json prisma.config.ts ./
+    COPY prisma ./prisma
+     
+    # Render inyecta PORT; Express lo lee de process.env.PORT
+    EXPOSE 3000
+     
+    # 1) aplica las migraciones  2) arranca. Si 1) falla, el deploy falla y sigue la versión anterior
+    CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]
